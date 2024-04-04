@@ -13,6 +13,7 @@
                         <form method="post" action="{{ route('posts.update', compact('post')) }}">
                             @method('put')
                             <x-category-select :id="$post->category_id" />
+                            <x-tag-select :current="$post->tags" />
                             <x-blog.inputs :post="$post"/>
                             <button type="submit"  id="submit"
                                     data-top-bottom="transform: translateY(-50px);"

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 //Route::put('/{post}', [PostController::class, 'update'])->name('posts.update');
 //Route::delete('/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
 
-Route::redirect('/', 'posts');
+
+//Route::redirect('/', 'posts');
 Route::resource('posts', PostController::class);
 
