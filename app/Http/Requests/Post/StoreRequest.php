@@ -18,7 +18,8 @@ class StoreRequest extends BaseRequest
             'description' => 'required|string|max:2000',
             'body' => 'required|string|max:2000',
             'cover' => 'required|string|max:250',
-            'category_id' => 'required|int|exists:App\Models\Category,id'
+            'category_id' => 'required|int|exists:App\Models\Category,id',
+            'user_id' => 'int'
         ];
     }
 
@@ -29,5 +30,11 @@ class StoreRequest extends BaseRequest
             'description.required' => 'Напиши тексту быльше)',
             'body.required' => 'Тоже тексту більше'
         ];
+    }
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+                'user_id' => auth()->id()
+            ]);
     }
 }

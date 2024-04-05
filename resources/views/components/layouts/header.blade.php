@@ -27,11 +27,29 @@
                 <li>
                     <a href="{{ route('posts.index') }}">BLOG</a>
                 </li>
+                @auth
                 <li>
                     <a href="{{ route('posts.create') }}">CREATE POST</a>
                 </li>
+                @endauth
+                @guest
+                <li>
+                    <a href="{{ route('register') }}">REGISTER</a>
+                </li>
+                <li>
+                    <a href="{{ route('login') }}">LOGIN</a>
+                </li>
+                @endguest
+                @auth
+                <li>
+                    <a onclick="document.querySelector('#logout').submit()" style="cursor: pointer">LOGOUT</a>
+                </li>
+                @endauth
             </ul>
         </nav>
     </div>
+    <form action="{{ route('logout') }}" method="post" id="logout">
+        @csrf
+    </form>
     <!-- navigation  end -->
 </header>

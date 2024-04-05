@@ -15,12 +15,18 @@ class Post extends Model
         'description',
         'body',
         'cover',
+        'user_id',
         'category_id'
     ];
 
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function user() : BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function tags() : BelongsToMany

@@ -9,6 +9,7 @@
                         <li>{{ $post->created_at->format('d M Y') }}</a></li>
                         <li> - </li>
                         <li style="text-transform: uppercase">{{ $post->category?->name }}</li>
+                        <li style="text-transform: uppercase">{{ $post->user?->name }}</li>
                     </ul>
                     <!-- blog media -->
                     <div class="blog-media fl-wrap">
