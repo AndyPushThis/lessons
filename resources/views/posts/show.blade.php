@@ -76,70 +76,7 @@
                     </div>
                 </div>
                 <!--post-author end-->
-                <div id="comments" class="single-post-comm">
-                    <!--title-->
-                    <h6 id="comments-title">Comments<span>( 2 )</span></h6>
-                    <ul class="commentlist clearafix">
-                        <li class="comment">
-                            <div class="comment-body">
-                                <div class="comment-author">
-                                    <img alt='' src='images/blog/users/1.jpg' width="50" height="50">
-                                </div>
-                                <cite class="fn"><a href="#">Kevin</a></cite>
-                                <div class="comment-meta">
-                                    <h6><a href="#">January 02, 2014 at 07:39 am</a> / <a class='comment-reply-link' href="#">Reply</a></h6>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo.</p>
-                            </div>
-                        </li>
-                        <li class="comment">
-                            <!--comment body-->
-                            <div class="comment-body">
-                                <div class="comment-author">
-                                    <img alt='' src='images/blog/users/1.jpg' width="50" height="50">
-                                </div>
-                                <cite class="fn"><a href="#">Andy</a></cite>
-                                <div class="comment-meta">
-                                    <h6><a href="#">January 22, 2014 at 03:19 am</a> / <a class='comment-reply-link' href="#">Reply</a></h6>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo.</p>
-                            </div>
-                        </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                    <div id="respond" class="clearafix">
-                        <h6 id="reply-title">Leave A Review</h6>
-                        <div class="comment-reply-form clearfix">
-                            <form action="#" method="post" id="commentform" class="form-horizontal" name="commentform">
-                                <div class="comment-form-author control-group">
-                                    <div class="controls">
-                                        <input id="author" name="author" type="text" value="" size="40" aria-required="true" />
-                                    </div>
-                                    <label class="control-label" for="author">Name </label>
-                                </div>
-                                <div class="comment-form-email control-group">
-                                    <div class="controls">
-                                        <input id="email" name="email" type="text" value="" size="40" aria-required="true" />
-                                    </div>
-                                    <label class="control-label" for="email">Email </label>
-                                </div>
-                                <div class="comment-form-comment control-group">
-                                    <div class="controls">
-                                                    <textarea id="comment" name="comment" cols="50" rows="8" aria-required="true" placeholder="Your comment here..">
-                                                    </textarea>
-                                    </div>
-                                </div>
-                                <div class="form-submit">
-                                    <div class="controls">
-                                        <button class="transition button" type="submit">Post Comment</button>
-                                        <input type='hidden' name='comment_post_ID' value='30' id='comment_post_ID'> <input type='hidden' name='comment_parent' id='comment_parent' value='0' />
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <!--end respond-->
-                </div>
+                <x-blog.comments :post="$post" />
                 <!--comments end -->
             </div>
         </section>

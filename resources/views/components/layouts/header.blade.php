@@ -3,6 +3,9 @@
         <ul>
             <li><a href="#"> <span>Call :</span> +7(111)123456789</a></li>
             <li><a href="#"> <span>Write :</span> yourmail@domain.com</a></li>
+            @auth()
+            <li><a href="#"> <span>User :</span> {{ auth()->user()->name }}</a></li>
+            @endauth
         </ul>
     </div>
     <a class="logo-holder" href="{{ route('posts.index') }}"><img src="{{ asset('images/logo.png')}} " alt=""></a>

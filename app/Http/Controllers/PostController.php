@@ -43,7 +43,7 @@ class PostController extends Controller implements HasMiddleware
 
     public function show(Post $post): View
     {
-        $post->load('category', 'tags');
+        $post->load('category', 'tags', 'comments.user');
         return view('posts.show',compact('post'));
 
     }
