@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Post\StoreRequest;
+use App\Http\Requests\Post\UpdateRequest;
 use App\Http\Requests\Tag\IdArrayRequest;
 use App\Models\Post;
 use App\Models\Category;
@@ -11,6 +12,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 
 
 class PostController extends Controller implements HasMiddleware
@@ -24,7 +26,9 @@ class PostController extends Controller implements HasMiddleware
 
     public function index(): View
     {
-        $posts = Post::with('category', 'tags', 'user')->get();
+        $posts = Post::query()
+            ->with('category', 'tags', 'user')
+            ->paginate(4);
         return view('posts.index', compact('posts'));
     }
 
@@ -35,7 +39,14 @@ class PostController extends Controller implements HasMiddleware
 
     public function store(StoreRequest $request, IdArrayRequest $tagsRequest): RedirectResponse
     {
-        $post=Post::query()->create($request->validated());
+        $validated = $request->validated();
+
+        if($cover = $request->file('cover')){
+            $filename= rand(111111, 999999). '.' . $cover->getClientOriginalExtension();
+            Storage::putFileAs('covers', $cover, $filename);
+            $validated['cover'] = 'storage/covers/' . $filename;
+        }
+        $post=Post::query()->create($validated);
         $post->tags()->attach($tagsRequest->tags);
         return to_route('posts.show', compact('post'));
 
@@ -55,10 +66,19 @@ class PostController extends Controller implements HasMiddleware
         return view('posts.edit',compact('post', 'categories'));
 
     }
-    public function update(Post $post, StoreRequest $request, IdArrayRequest $tagsRequest): RedirectResponse
+    public function update(Post $post, UpdateRequest $request, IdArrayRequest $tagsRequest): RedirectResponse
     {
         Gate::authorize('postOwner', $post);
-        $post->update($request->validated());
+
+        $validated = $request->validated();
+
+        if($cover = $request->file('cover')){
+            $filename= rand(111111, 999999). '.' . $cover->getClientOriginalExtension();
+            Storage::putFileAs('covers', $cover, $filename);
+            $validated['cover'] = 'storage/covers/' . $filename;
+        }
+
+        $post->update($validated);
         $post->tags()->sync($tagsRequest->tags);
         return to_route('posts.index');
 

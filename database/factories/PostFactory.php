@@ -16,11 +16,14 @@ class PostFactory extends Factory
      */
     public function definition(): array
     {
+        $title = fake()->sentence(4);
+
         return [
-            'title' => fake()->sentence(4),
+            'title' => $title,
+            'slug' => str($title)->slug()->toString(),
             'description' => fake()->text(),
             'body' => fake()->text(2000),
-            'cover' => 'img',
+            'cover' => 'sample/images/' . rand(1, 8) . '.jpg',
             'category_id' => rand(1, 10),
             'user_id' => rand(1, 11)
         ];

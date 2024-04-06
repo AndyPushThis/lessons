@@ -19,10 +19,11 @@
                 <div class="contact-form-holder fl-wrap">
                     <div id="contact-form">
                         <div id="message"></div>
-                        <form method="post" action="{{ route('posts.store') }}">
+                        <form method="post" action="{{ route('posts.store') }}" enctype="multipart/form-data">
                             <x-category-select/>
                             <x-tag-select />
                             <x-blog.inputs />
+                            <input type="file" name="cover" required>
                             <button type="submit"  id="submit"  data-top-bottom="transform: translateY(-50px);" data-bottom-top="transform: translateY(50px);"><span>Create </span></button>
                         </form>
                     </div>

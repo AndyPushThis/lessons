@@ -3,7 +3,6 @@
 @error('title')
 <p style="color: #a90707">{{ $message }}</p>
 @enderror
-<input name="cover" type="hidden" value="cover" required>
 <textarea name="description"  id="description" placeholder="DESCRIPTION">{{ old('description', $post->description ?? '') }}</textarea>
 @error('description')
 <p style="color: #a90707">{{ $message }}</p>
@@ -12,3 +11,13 @@
 @error('body')
 <p style="color: #a90707">{{ $message }}</p>
 @enderror
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+
+    </div>
+@endif

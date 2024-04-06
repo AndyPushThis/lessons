@@ -11,9 +11,7 @@
         <div class="single-slider fl-wrap" data-effects="slide">
             <div class="swiper-container">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide"><img src="{{ asset('images/folio/1.jpg') }}" alt=""></div>
-                    <div class="swiper-slide"><img src="{{ asset('images/folio/1.jpg') }}" alt=""></div>
-                    <div class="swiper-slide"><img src="{{ asset('images/folio/1.jpg') }}" alt=""></div>
+                    <div class="swiper-slide"><img src="{{ asset($post->cover) }}" alt=""></div>
                 </div>
                 <div class="swiper-pagination"></div>
                 <div class="swiper-button-prev"><i class="fa fa-angle-left"></i></div>

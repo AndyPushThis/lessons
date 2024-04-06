@@ -13,12 +13,17 @@ class Post extends Model
     use HasFactory;
     protected $fillable = [
         'title',
+        'slug',
         'description',
         'body',
         'cover',
         'user_id',
         'category_id'
     ];
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
 
     public function category(): BelongsTo
     {

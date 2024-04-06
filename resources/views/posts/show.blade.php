@@ -16,9 +16,7 @@
                         <div class="single-slider fl-wrap" data-effects="slide">
                             <div class="swiper-container">
                                 <div class="swiper-wrapper">
-                                    <div class="swiper-slide"><img src="{{ asset('images/folio/1.jpg') }}" alt=""></div>
-                                    <div class="swiper-slide"><img src="{{ asset('images/folio/1.jpg') }}" alt=""></div>
-                                    <div class="swiper-slide"><img src="{{ asset('images/folio/1.jpg') }}" alt=""></div>
+                                    <div class="swiper-slide"><img src="{{ asset( asset($post->cover)) }}" alt=""></div>
                                 </div>
                                 <div class="swiper-pagination"></div>
                                 <div class="swiper-button-prev"><i class="fa fa-angle-left"></i></div>
@@ -59,18 +57,15 @@
                 <!-- post-author-->
                 <div class="post-author">
                     <div class="author-img">
-                        <img alt='' src="images/blog/1.jpg">
+                        <img alt='' src="{{ asset('images/blog/1.jpg') }}">
                     </div>
                     <div class="author-content">
-                        <h5><a href="#">Jane Kowalski</a></h5>
-                        <p>At one extremity the rope was unstranded, and the separate spread yarns were all braided and woven round the socket of the harpoon; the pole was then driven hard up into the socket; from the lower end the rope was traced half-way along the pole’s length, and firmly secured so, with intertwistings of twine.</p>
+                        <h5><a href="#">{{ $post->user->name }}</a></h5>
+                        <p>{{ $post->user->description }}</p>
                         <div class="author-social">
                             <ul>
-                                <li><a href="#" target="_blank" ><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#" target="_blank" ><i class="fa fa-instagram"></i></a></li>
-                                <li><a href="#" target="_blank" ><i class="fa fa-pinterest"></i></a></li>
-                                <li><a href="#" target="_blank" ><i class="fa fa-tumblr"></i></a></li>
+                                <li><a href="#" target="_blank" ><i class="fa fa-plus"></i></a></li>
+                                <li><a href="#" target="_blank"><i class="fa fa-minus"></i></a></li>
                             </ul>
                         </div>
                     </div>
