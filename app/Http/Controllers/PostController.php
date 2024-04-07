@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Post\StoreRequest;
 use App\Http\Requests\Post\UpdateRequest;
 use App\Http\Requests\Tag\IdArrayRequest;
+use App\Jobs\Mail\SendMailNewPost;
 use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Contracts\View\View;
@@ -48,6 +49,11 @@ class PostController extends Controller implements HasMiddleware
         }
         $post=Post::query()->create($validated);
         $post->tags()->attach($tagsRequest->tags);
+
+        $readers = $post->user->readers()->get();
+        foreach ($readers as $reader){
+            SendMailNewPost::dispatch();
+        }
         return to_route('posts.show', compact('post'));
 
     }
@@ -55,7 +61,8 @@ class PostController extends Controller implements HasMiddleware
     public function show(Post $post): View
     {
         $post->load('category', 'tags', 'comments.user');
-        return view('posts.show',compact('post'));
+        $isSubscribed = $post->user->readers()->where('reader_id', auth()->id())->exists();
+        return view('posts.show',compact('post', 'isSubscribed'));
 
     }
     public function edit(Post $post): View

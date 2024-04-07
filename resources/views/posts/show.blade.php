@@ -63,10 +63,17 @@
                         <h5><a href="#">{{ $post->user->name }}</a></h5>
                         <p>{{ $post->user->description }}</p>
                         <div class="author-social">
-                            <ul>
-                                <li><a href="#" target="_blank" ><i class="fa fa-plus"></i></a></li>
-                                <li><a href="#" target="_blank"><i class="fa fa-minus"></i></a></li>
+                            @auth
+                            <ul id="buttonWrapper">
+                                @if($isSubscribed)
+                                <li style="cursor: pointer;" onclick="unsubscribe('{{ $post->user->id }}')" id="unsubscribeButton">
+                                    <span><i style="color: white;" class="fa fa-minus"></i></span></li>
+                                @else
+                                <li style="cursor: pointer;" onclick="subscribe('{{ $post->user->id }}')" id="subscribeButton">
+                                    <span><i style="color: white;" class="fa fa-plus"></i></span></li>
+                                @endif
                             </ul>
+                            @endauth
                         </div>
                     </div>
                 </div>
@@ -77,3 +84,53 @@
         </section>
     </div>
 </x-layouts.main>
+<script>
+    async function subscribe(authorId){
+        let response = await fetch('{{ route('subscriptions.store') }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json; charset=utf-8',
+                'X-CSRF-Token': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({
+                author_id: authorId
+            })
+        });
+        if(response.status == 201){
+            document.querySelector('#subscribeButton').remove();
+            let button = document.createElement('li');
+            button.style="cursor: pointer";
+            button.onclick=function (){
+                unsubscribe('{{ $post->user->id }}')
+            };
+            button.id = "unsubscribeButton";
+            button.innerHTML = `<span><i style="color: white;" class="fa fa-minus"></i></span>`;
+            document.querySelector('#buttonWrapper').append(button);
+        }
+    }
+
+    async function unsubscribe(authorId){
+        let response = await fetch('{{ route('subscriptions.destroy') }}', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type' : 'application/json; charset=utf-8',
+                'X-CSRF-Token': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({
+                author_id: authorId
+            })
+        });
+        if(response.status == 200) {
+            document.querySelector('#unsubscribeButton').remove();
+
+            let button = document.createElement('li');
+            button.style = "cursor: pointer";
+            button.onclick = function () {
+                subscribe('{{ $post->user->id }}')
+            };
+            button.id = "subscribeButton";
+            button.innerHTML = `<span><i style="color: white;" class="fa fa-plus"></i></span>`;
+            document.querySelector('#buttonWrapper').append(button);
+        }
+    }
+</script>

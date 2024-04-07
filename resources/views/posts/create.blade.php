@@ -20,6 +20,9 @@
                     <div id="contact-form">
                         <div id="message"></div>
                         <form method="post" action="{{ route('posts.store') }}" enctype="multipart/form-data">
+                            @error('slug')
+                            <p style="color: #a90707">{{ $message }}</p>
+                            @enderror
                             <x-category-select/>
                             <x-tag-select />
                             <x-blog.inputs />
