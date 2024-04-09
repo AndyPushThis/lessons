@@ -2,11 +2,18 @@
 
 namespace App\Jobs\Mail;
 
+namespace App\Jobs\Mail;
+
+use App\Mail\Blog\NewPost;
+use App\Models\Post;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class SendMailNewPost implements ShouldQueue
 {
@@ -15,7 +22,10 @@ class SendMailNewPost implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    public function __construct()
+    public function __construct(
+        public User $reader,
+        public Post $post
+    )
     {
         //
     }
@@ -25,8 +35,8 @@ class SendMailNewPost implements ShouldQueue
      */
     public function handle(): void
     {
-        sleep(10);
-        Log::info('Main was sent');
+        //Mail::to($this->reader->email)
+        Mail::to('andreymark111@gmail.com')->send(new NewPost($this->post));
         //
     }
 }
