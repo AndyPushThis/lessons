@@ -14,12 +14,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
+        User::query()->create([
             'name' => 'Andry',
             'email' => 'andrymark00@gmail.com',
             'password' => 'andry1992',
             'role' => UserRoleEnum::ADMIN->value
         ]);
+
+        User::query()->create([
+            'name' => 'Andry',
+            'email' => 'user@gmail.com',
+            'password' => 'andry1992',
+            'role' => UserRoleEnum::USER->value
+        ]);
+
 
         User::factory(10)->create();
 

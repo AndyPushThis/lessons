@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('author_id')->references('id')->on('users');
-            $table->foreignId('reader_id')->references('id')->on('users');
+            $table->foreignId('author_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreignId('reader_id')->references('id')->on('users')->cascadeOnDelete();
             $table->unique(['author_id', 'reader_id']);
             $table->timestamps();
         });
